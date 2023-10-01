@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,5 +44,16 @@ public class EmployeeDTO {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", EmployeeDTO.class.getSimpleName() + "[", "]")
+            .add("uuid=" + uuid)
+            .add("email='" + email + "'")
+            .add("fullName='" + fullName + "'")
+            .add("birthday='" + birthday + "'")
+            .add("hobbies=" + hobbies)
+            .toString();
     }
 }
