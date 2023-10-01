@@ -41,14 +41,14 @@ public class EmployeeService {
         return employeeRepository.save(employee).getUuid();
     }
 
-    public void update(final UUID uuid, final EmployeeDTO employeeDTO) {
+    public UUID update(final UUID uuid, final EmployeeDTO employeeDTO) {
         final Employee employee = employeeRepository.findById(uuid)
                 .orElseThrow(NotFoundException::new);
         if (!employee.getEmail().equalsIgnoreCase(employeeDTO.getEmail())) {
             emailExists(employeeDTO.getEmail());
         }
         mapToEntity(employeeDTO, employee);
-        employeeRepository.save(employee);
+        return employeeRepository.save(employee).getUuid();
     }
 
     public void delete(final UUID uuid) {

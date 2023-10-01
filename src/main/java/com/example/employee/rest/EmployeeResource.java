@@ -4,6 +4,7 @@ import com.example.employee.model.EmployeeDTO;
 import com.example.employee.service.EmployeeService;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,16 +43,16 @@ public class EmployeeResource {
     }
 
     @PostMapping
-    public ResponseEntity<UUID> createEmployee(@RequestBody @Valid final EmployeeDTO employeeDTO) {
+    public ResponseEntity<Map<String, UUID>> createEmployee(@RequestBody @Valid final EmployeeDTO employeeDTO) {
         final UUID createdUuid = employeeService.create(employeeDTO);
-        return new ResponseEntity<>(createdUuid, HttpStatus.CREATED);
+        return new ResponseEntity<>(Map.of("uuid", createdUuid), HttpStatus.CREATED);
     }
 
     @PutMapping("/{uuid}")
-    public ResponseEntity<UUID> updateEmployee(@PathVariable final UUID uuid,
+    public ResponseEntity<Map<String, UUID>> updateEmployee(@PathVariable final UUID uuid,
             @RequestBody @Valid final EmployeeDTO employeeDTO) {
-        employeeService.update(uuid, employeeDTO);
-        return ResponseEntity.ok(uuid);
+        final UUID updatedUUID = employeeService.update(uuid, employeeDTO);
+        return new ResponseEntity<>(Map.of("uuid", updatedUUID), HttpStatus.OK);
     }
 
     @DeleteMapping("/{uuid}")

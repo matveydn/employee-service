@@ -59,4 +59,8 @@ public class Employee {
         this.birthday = LocalDate.parse(birthday, Constants.DATE_FORMAT);
     }
 
+    public String getBirthdayFormatted() {
+        return birthday.format(Constants.DATE_FORMAT);
+    }
+
 }
