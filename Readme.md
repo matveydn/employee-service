@@ -19,7 +19,7 @@
 8. Run the database you’ve chosen to store the employee's data in a Docker container
 9. Include some unit and integration tests
 
-### Following parts wasn't implemented:
+### Following parts weren't implemented:
 
 1. Add authentication to access create, update and delete employee endpoints
 2. A service publishes an event that affects the Employee service. Such an event is
@@ -29,23 +29,24 @@
 
 ### Implementation details
 
-1. Application build with Java 17, SpringBoot, Docker and maven
-2. Postgres database is used to store data and RabbitMQ is used as message broker, both are running in Docker containers
+1. Application built with Java 17, SpringBoot, Docker and maven
+2. Postgres database is used to store data and RabbitMQ is used as a message broker, 
+   both are running in Docker containers
 3. Testcontainers is used to run Postgres database for integration testing
-4. I didn't come up with how to run RabbitMQ in testcontainers, so dockerized RabbitMQ 
+4. I didn't come up with how to run RabbitMQ with Testcontainers, so dockerized RabbitMQ 
    should be available during integration testing
 
 ## How to run
 
 ### Run application
 `mvn springboot:run` - to run application
-- First run could be slow because of downloading docker images
+- First run could be slow for tests and application because it downloads docker images
 - Application is listening on port 8080
 - API documentation is available on `http://localhost:8080/swagger-ui/index.html#/`
 - Request examples :
  1. Create employee
     ```
-    curl --location 'http://localhost:8080/api/employees' \
+    curl --location --request POST 'http://localhost:8080/api/employees' \
       --header 'Content-Type: application/json' \
       --data-raw '{
       "email": "mot10@begemot",
@@ -73,13 +74,13 @@
     "hobbies": []
     }'
     ```
-    5. Delete employee
-        ```
-        curl --location --request DELETE 'http://localhost:8080/api/employees/543843bd-3916-4a12-828b-277abd6084f'
-        ```
+ 5. Delete employee
+     ```
+     curl --location --request DELETE 'http://localhost:8080/api/employees/543843bd-3916-4a12-828b-277abd6084f'
+     ```
 
 ### Run tests
-Run rabbitmq manually docker-compose before running tests
+Run rabbitmq manually with docker-compose before running tests
 
 `docker compose -f docker-compose.yml -p employee-service up rabbitmq`
 
