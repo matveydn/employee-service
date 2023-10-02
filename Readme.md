@@ -42,6 +42,41 @@
 - First run could be slow because of downloading docker images
 - Application is listening on port 8080
 - API documentation is available on `http://localhost:8080/swagger-ui/index.html#/`
+- Request examples :
+ 1. Create employee
+    ```
+    curl --location 'http://localhost:8080/api/employees' \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+      "email": "mot10@begemot",
+      "fullName": "Matvey Davidson",
+      "birthday": "2023-09-01",
+      "hobbies": ["work", "sleep", "repeat"]
+      }'
+    ```
+ 2. Get all employees
+    ```
+    curl --location 'http://localhost:8080/api/employees'
+    ```
+ 3. Get employee by uuid
+    ```
+    curl --location 'http://localhost:8080/api/employees/543843bd-3916-4a12-828b-277abd6084f'
+    ```
+ 4. Update employee
+    ```
+    curl --location --request PUT 'http://localhost:8080/api/employees/f5b52a64-c486-4c96-bc4a-f380bd9188dd' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+    "email": "mot6@begemot",
+    "fullName": "Matvey Davidson",
+    "birthday": "2023-09-01",
+    "hobbies": []
+    }'
+    ```
+    5. Delete employee
+        ```
+        curl --location --request DELETE 'http://localhost:8080/api/employees/543843bd-3916-4a12-828b-277abd6084f'
+        ```
 
 ### Run tests
 Run rabbitmq manually docker-compose before running tests
